@@ -15,6 +15,25 @@ class Usuarios {
     });
   }
 
+  login(correo, contrasenia) {
+    const sql = "SELECT id_Cliente, usuario, nombre, apellido, correo, telefono, rol FROM usuarios WHERE correo = ? AND contrasenia = ?";
+    const values = [correo, contrasenia];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (result.length > 0) {
+            resolve(result[0]);
+          } else {
+            resolve(null);
+          }
+        }
+      });
+    });
+  }
+
   register(
     usuario,
     contrasenia,
@@ -42,6 +61,56 @@ class Usuarios {
           reject(err);
         } else {
           resolve(result.insertId);
+        }
+      });
+    });
+  }
+
+  update(
+    usuario,
+    contrasenia,
+    nombre,
+    apellido,
+    correo,
+    telefono,
+    rol,
+    id_Cliente
+  ) {
+    const sql =
+      `UPDATE usuarios SET usuario = ?, contrasenia = ?, nombre = ?, apellido = ?, correo = ?, telefono = ?, rol = ?
+      WHERE id_Cliente = ?`;
+    ;
+    const values = [
+      usuario,
+      contrasenia,
+      nombre,
+      apellido,
+      correo,
+      telefono,
+      rol,
+      id_Cliente
+    ];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.affectedRows > 0);
+        }
+      });
+    });
+  }
+  delete(id_Cliente) {
+    const sql = "DELETE FROM usuarios WHERE id_Cliente = ?";
+    const values = [id_Cliente];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.affectedRows > 0);
         }
       });
     });

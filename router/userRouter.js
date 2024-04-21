@@ -12,6 +12,21 @@ router.get("/usuarios", async (req, res) => {
   }
 });
 
+router.post("/usuarios/login", async (req, res) => {
+  try {
+    const { correo, contrasenia } = req.body;
+    const usuario = await new Usuarios().login(correo, contrasenia);
+    if (usuario) {
+      res.json(usuario);
+    } else {
+      res.status(401).send("Usuario o contraseña incorrectos");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 
 router.post("/usuarios", async (req, res) => {
   try {
