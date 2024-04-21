@@ -10,6 +10,13 @@ app.use(express.json());
 
 const userRouter = require("./router/userRouter");
 app.use(userRouter);
+
+const bancosRouter = require("./router/bancosRouter");
+app.use(bancosRouter);
+
+const prestamosRouter = require("./router/prestamosRouter");
+app.use(prestamosRouter);
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
