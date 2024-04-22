@@ -48,4 +48,24 @@ router.post("/bancos", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+
+router.put("/bancos/:id", async (req, res) => {
+  try {
+    const {
+      nombre,
+      logo,
+      direccion,
+    } = req.body;
+    const result = await new Bancos().update(
+      req.params.id,
+      nombre,
+      logo,
+      direccion
+    );
+    res.json({ id: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 module.exports = router;

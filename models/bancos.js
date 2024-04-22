@@ -60,5 +60,34 @@ class Bancos {
       });
     });
   }
+
+  update(
+    id_Banco,
+    nombre,
+    logo,
+    direccion,
+  ) {
+    const sql =
+      `UPDATE bancos SET nombre = ?, logo = ?, direccion = ?
+      WHERE id_Banco = ?`;
+    ;
+    const values = [
+      nombre,
+      logo,
+      direccion,
+      id_Banco
+    ];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.affectedRows > 0);
+        }
+      });
+    });
+  }
+
 }
 module.exports = Bancos;
