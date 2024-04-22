@@ -17,6 +17,9 @@ app.use(bancosRouter);
 const prestamosRouter = require("./router/prestamosRouter");
 app.use(prestamosRouter);
 
+const inversionesRouter = require("./router/inversionesRouter");
+app.use(inversionesRouter);
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
