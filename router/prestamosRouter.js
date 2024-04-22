@@ -13,6 +13,21 @@ router.get("/prestamos", async (req, res) => {
   }
 });
 
+router.get("/prestamos/:id", async (req, res) => {
+  try {
+    const id_Banco = req.params.id;
+    const usuario = await new Prestamos().getInfo(id_Banco);
+    if (usuario) {
+      res.json(usuario);
+    } else {
+      res.status(404).send("Usuario no encontrado");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 router.get("/prestamos/banco/:idBanco", async (req, res) => {
   const idBanco = req.params.idBanco;
   try {

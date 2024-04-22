@@ -15,6 +15,26 @@ class Prestamos {
     });
   }
 
+    
+  getInfo(id_Banco) {
+    const sql = "SELECT * FROM prestamos WHERE id_Banco= ?";
+    const values = [id_Banco];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (result.length > 0) {
+            resolve(result[0]);
+          } else {
+            resolve(null);
+          }
+        }
+      });
+    });
+  }
+
   getByBankId(idBanco) {
     const sql = "SELECT * FROM prestamos WHERE id_Banco = ?";
     return new Promise((resolve, reject) => {
