@@ -20,6 +20,9 @@ app.use(prestamosRouter);
 const inversionesRouter = require("./router/inversionesRouter");
 app.use(inversionesRouter);
 
+const cobrosIndirectosRouter = require("./router/cobrosIndirectosRouter");
+app.use(cobrosIndirectosRouter);
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
