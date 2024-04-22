@@ -39,4 +39,27 @@ router.get("/prestamos/banco/:idBanco", async (req, res) => {
   }
 });
 
+router.put("/prestamos/:id", async (req, res) => {
+  try {
+    const {
+      tipo,
+      tasa_interes,
+      monto_min,
+      monto_max,
+      detalles
+    } = req.body;
+    const result = await new Prestamos().update(
+      req.params.id,
+      tipo,
+      tasa_interes,
+      monto_min,
+      monto_max,
+      detalles
+    );
+    res.json({ id: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 module.exports = router;

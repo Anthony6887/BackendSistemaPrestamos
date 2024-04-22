@@ -44,6 +44,40 @@ class Prestamos {
       });
     });
   }
+
+
+  update(
+    id_Prestamo,
+    tipo,
+    tasa_interes,
+    monto_min,
+    monto_max,
+    detalles,
+  ) {
+    const sql =
+      `UPDATE prestamos SET tipo = ?, tasa_interes = ?, monto_min = ?, monto_max = ?, detalles = ? 
+      WHERE id_Prestamo = ?`;
+
+    ;
+    const values = [
+      tipo,
+      tasa_interes,
+      monto_min,
+      monto_max,
+      detalles,
+      id_Prestamo
+    ];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.affectedRows > 0);
+        }
+      });
+    });
+  }
 }
 
 module.exports = Prestamos;
