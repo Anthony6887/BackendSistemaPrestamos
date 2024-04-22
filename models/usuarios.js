@@ -15,6 +15,26 @@ class Usuarios {
     });
   }
 
+  getInfo(id_Cliente) {
+    const sql = "SELECT * FROM usuarios WHERE id_Cliente = ?";
+    const values = [id_Cliente];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (result.length > 0) {
+            resolve(result[0]);
+          } else {
+            resolve(null);
+          }
+        }
+      });
+    });
+  }
+
+
   login(correo, contrasenia) {
     const sql = "SELECT id_Cliente, usuario, nombre, apellido, correo, telefono, rol FROM usuarios WHERE correo = ? AND contrasenia = ?";
     const values = [correo, contrasenia];
@@ -70,27 +90,23 @@ class Usuarios {
   }
 
   update(
+    id_Cliente,
     usuario,
-    contrasenia,
     nombre,
     apellido,
     correo,
-    telefono,
-    rol,
-    id_Cliente
+    telefono
   ) {
     const sql =
-      `UPDATE usuarios SET usuario = ?, contrasenia = ?, nombre = ?, apellido = ?, correo = ?, telefono = ?, rol = ?
+      `UPDATE usuarios SET usuario = ?, nombre = ?, apellido = ?, correo = ?, telefono = ?
       WHERE id_Cliente = ?`;
     ;
     const values = [
       usuario,
-      contrasenia,
       nombre,
       apellido,
       correo,
       telefono,
-      rol,
       id_Cliente
     ];
 
@@ -104,6 +120,8 @@ class Usuarios {
       });
     });
   }
+
+
   delete(id_Cliente) {
     const sql = "DELETE FROM usuarios WHERE id_Cliente = ?";
     const values = [id_Cliente];
