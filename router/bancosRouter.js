@@ -12,4 +12,25 @@ router.get("/bancos", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+
+router.post("/bancos", async (req, res) => {
+  try {
+    const {
+      nombre,
+      logo,
+      direccion,
+      id_Administrador
+    } = req.body;
+    const result = await new Bancos().register(
+      nombre,
+      logo,
+      direccion,
+      id_Administrador
+    );
+    res.json({ id: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 module.exports = router;

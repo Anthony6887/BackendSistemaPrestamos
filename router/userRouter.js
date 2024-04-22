@@ -27,6 +27,20 @@ router.post("/usuarios/login", async (req, res) => {
   }
 });
 
+router.post("/usuarios/obtenerCliente", async (req, res) => {
+  try {
+    const { correo } = req.body;
+    const usuarios = await new Usuarios().obtenercliente(correo);
+    if (usuarios) {
+      res.json(usuarios);
+    } else {
+      res.status(401).send("Usuario y correo no encontrado");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 router.post("/usuarios", async (req, res) => {
   try {
