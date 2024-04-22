@@ -33,24 +33,6 @@ class Usuarios {
       });
     });
   }
-  obtenercliente(correo) {
-    const sql = "SELECT id_Cliente FROM usuarios WHERE correo = ?";
-    const values = [correo];
-
-    return new Promise((resolve, reject) => {
-      this.connection.query(sql, values, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (result.length > 0) {
-            resolve(result[0]);
-          } else {
-            resolve(null);
-          }
-        }
-      });
-    });
-  }
 
   register(
     usuario,
