@@ -13,6 +13,21 @@ router.get("/bancos", async (req, res) => {
   }
 });
 
+router.get("/bancos/:id", async (req, res) => {
+  try {
+    const id_Administrador = req.params.id;
+    const usuario = await new Bancos().getInfo(id_Administrador);
+    if (usuario) {
+      res.json(usuario);
+    } else {
+      res.status(404).send("Usuario no encontrado");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 router.post("/bancos", async (req, res) => {
   try {
     const {

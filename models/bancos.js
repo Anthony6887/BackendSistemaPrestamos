@@ -15,6 +15,26 @@ class Bancos {
     });
   }
 
+  
+  getInfo(id_Administrador) {
+    const sql = "SELECT * FROM bancos WHERE id_Administrador= ?";
+    const values = [id_Administrador];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (result.length > 0) {
+            resolve(result[0]);
+          } else {
+            resolve(null);
+          }
+        }
+      });
+    });
+  }
+
   register(
     nombre,
     logo,
