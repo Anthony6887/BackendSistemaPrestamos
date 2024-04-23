@@ -28,12 +28,14 @@ class CobrosIndirectos {
   register(
   nombreCobroIndirecto,
   montoSeguro,
+  id_Banco
   ) {
-    const sql = `INSERT INTO cobrosindirectos (nombreCobroIndirecto, montoSeguro)
-      VALUES (?, ?)`;
+    const sql = `INSERT INTO cobrosindirectos (nombreCobroIndirecto, montoSeguro, id_Banco)
+      VALUES (?, ?, ?)`;
     const values = [
       nombreCobroIndirecto,
-      montoSeguro
+      montoSeguro,
+      id_Banco
     ];
 
     return new Promise((resolve, reject) => {

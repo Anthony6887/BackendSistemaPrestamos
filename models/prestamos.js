@@ -15,7 +15,7 @@ class Prestamos {
     });
   }
 
-    
+
   getInfo(id_Banco) {
     const sql = "SELECT * FROM prestamos WHERE id_Banco= ?";
     const values = [id_Banco];
@@ -41,6 +41,39 @@ class Prestamos {
       this.connection.query(sql, [idBanco], (err, result) => {
         if (err) return reject(err);
         resolve(result);
+      });
+    });
+  }
+
+  register(
+    tipo,
+    tasa_interes,
+    monto_min,
+    monto_max,
+    detalles,
+    id_Banco
+  ) {
+    const sql = `INSERT INTO prestamos (tipo, tasa_interes, monto_min, monto_max, detalles, id_Banco)
+      VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [
+      tipo,
+      tasa_interes,
+      monto_min,
+      monto_max,
+      detalles,
+      id_Banco
+    ];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+
+          const idPrestamoRegistrado = result.insertId;
+
+          resolve(idPrestamoRegistrado);
+        }
       });
     });
   }

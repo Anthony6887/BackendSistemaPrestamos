@@ -39,6 +39,27 @@ router.get("/inversiones/banco/:idBanco", async (req, res) => {
   }
 });
 
+router.post("/inversiones", async (req, res) => {
+  try {
+    const {
+      id_Banco,
+      interes_Mensual,
+      interes_Anual,
+      interes_Diario
+    } = req.body;
+    const result = await new Inversiones().register(
+      id_Banco,
+      interes_Mensual,
+      interes_Anual,
+      interes_Diario
+    );
+    res.json({ id: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 router.put("/inversiones/:id", async (req, res) => {
   try {
     const {

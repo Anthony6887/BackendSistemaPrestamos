@@ -44,6 +44,35 @@ class Inversiones {
     });
   }
 
+  register(
+    id_Banco,
+    interes_Mensual,
+    interes_Anual,
+    interes_Diario
+  ) {
+    const sql = `INSERT INTO inversiones (id_Banco, interes_Mensual, interes_Anual, interes_Diario)
+      VALUES (?, ?, ?, ?)`;
+    const values = [
+      id_Banco,
+      interes_Mensual,
+      interes_Anual,
+      interes_Diario
+    ];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+
+          const idPrestamoRegistrado = result.insertId;
+
+          resolve(idPrestamoRegistrado);
+        }
+      });
+    });
+  }
+
   update(
     id_Inversion,
     interes_Mensual,

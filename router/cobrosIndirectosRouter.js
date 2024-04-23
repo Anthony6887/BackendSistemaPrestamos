@@ -29,10 +29,12 @@ router.post("/cobrosindirectos", async (req, res) => {
     const {
       nombreCobroIndirecto,
       montoSeguro,
+      id_Banco
     } = req.body;
     const result = await new CobrosIndirectos().register(
       nombreCobroIndirecto,
-      montoSeguro
+      montoSeguro,
+      id_Banco
     );
     res.json({ id: result });
   } catch (error) {
