@@ -38,6 +38,16 @@ router.get("/prestamos/banco/:idBanco", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+router.get("/prestamos/prestamo/:idPrestamo", async (req, res) => {
+  const idPrestamo = req.params.idPrestamo;
+  try {
+    const prestamos = await new Prestamos().getByPrestamoId(idPrestamo);
+    res.json(prestamos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 router.post("/prestamos", async (req, res) => {
   try {
