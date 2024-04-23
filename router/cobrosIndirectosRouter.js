@@ -24,4 +24,21 @@ router.get("/cobrosindirectos/banco/:idBanco", async (req, res) => {
   }
 });
 
+router.post("/cobrosindirectos", async (req, res) => {
+  try {
+    const {
+      nombreCobroIndirecto,
+      montoSeguro,
+    } = req.body;
+    const result = await new CobrosIndirectos().register(
+      nombreCobroIndirecto,
+      montoSeguro
+    );
+    res.json({ id: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 module.exports = router;

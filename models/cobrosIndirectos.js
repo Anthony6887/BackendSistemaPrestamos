@@ -24,6 +24,31 @@ class CobrosIndirectos {
       });
     });
   }
+
+  register(
+  nombreCobroIndirecto,
+  montoSeguro,
+  ) {
+    const sql = `INSERT INTO cobrosindirectos (nombreCobroIndirecto, montoSeguro)
+      VALUES (?, ?)`;
+    const values = [
+      nombreCobroIndirecto,
+      montoSeguro
+    ];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+
+          const idCobroIndirectos = result.insertId;
+
+          resolve(idCobroIndirectos);
+        }
+      });
+    });
+  }
 }
 
 module.exports = CobrosIndirectos;
